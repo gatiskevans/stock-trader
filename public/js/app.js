@@ -4943,7 +4943,7 @@ validators.transitional = function transitional(validator, version, message) {
 
 function assertOptions(options, schema, allowUnknown) {
   if (typeof options !== 'object') {
-    throw new TypeError('options must be an object');
+    throw new TypeError('responsive must be an object');
   }
   var keys = Object.keys(options);
   var i = keys.length;
@@ -5442,7 +5442,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
       WRAP_REARG_FLAG = 256,
       WRAP_FLIP_FLAG = 512;
 
-  /** Used as default options for `_.truncate`. */
+  /** Used as default responsive for `_.truncate`. */
   var DEFAULT_TRUNC_LENGTH = 30,
       DEFAULT_TRUNC_OMISSION = '...';
 
@@ -15710,13 +15710,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * milliseconds have elapsed since the last time the debounced function was
      * invoked. The debounced function comes with a `cancel` method to cancel
      * delayed `func` invocations and a `flush` method to immediately invoke them.
-     * Provide `options` to indicate whether `func` should be invoked on the
+     * Provide `responsive` to indicate whether `func` should be invoked on the
      * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
      * with the last arguments provided to the debounced function. Subsequent
      * calls to the debounced function return the result of the last `func`
      * invocation.
      *
-     * **Note:** If `leading` and `trailing` options are `true`, `func` is
+     * **Note:** If `leading` and `trailing` responsive are `true`, `func` is
      * invoked on the trailing edge of the timeout only if the debounced function
      * is invoked more than once during the `wait` timeout.
      *
@@ -15732,7 +15732,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @category Function
      * @param {Function} func The function to debounce.
      * @param {number} [wait=0] The number of milliseconds to delay.
-     * @param {Object} [options={}] The options object.
+     * @param {Object} [options={}] The responsive object.
      * @param {boolean} [options.leading=false]
      *  Specify invoking on the leading edge of the timeout.
      * @param {number} [options.maxWait]
@@ -16312,13 +16312,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * Creates a throttled function that only invokes `func` at most once per
      * every `wait` milliseconds. The throttled function comes with a `cancel`
      * method to cancel delayed `func` invocations and a `flush` method to
-     * immediately invoke them. Provide `options` to indicate whether `func`
+     * immediately invoke them. Provide `responsive` to indicate whether `func`
      * should be invoked on the leading and/or trailing edge of the `wait`
      * timeout. The `func` is invoked with the last arguments provided to the
      * throttled function. Subsequent calls to the throttled function return the
      * result of the last `func` invocation.
      *
-     * **Note:** If `leading` and `trailing` options are `true`, `func` is
+     * **Note:** If `leading` and `trailing` responsive are `true`, `func` is
      * invoked on the trailing edge of the timeout only if the throttled function
      * is invoked more than once during the `wait` timeout.
      *
@@ -16334,7 +16334,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @category Function
      * @param {Function} func The function to throttle.
      * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
-     * @param {Object} [options={}] The options object.
+     * @param {Object} [options={}] The responsive object.
      * @param {boolean} [options.leading=true]
      *  Specify invoking on the leading edge of the timeout.
      * @param {boolean} [options.trailing=true]
@@ -20143,7 +20143,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @memberOf _
      * @category String
      * @param {string} [string=''] The template string.
-     * @param {Object} [options={}] The options object.
+     * @param {Object} [options={}] The responsive object.
      * @param {RegExp} [options.escape=_.templateSettings.escape]
      *  The HTML "escape" delimiter.
      * @param {RegExp} [options.evaluate=_.templateSettings.evaluate]
@@ -20506,7 +20506,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @since 4.0.0
      * @category String
      * @param {string} [string=''] The string to truncate.
-     * @param {Object} [options={}] The options object.
+     * @param {Object} [options={}] The responsive object.
      * @param {number} [options.length=30] The maximum string length.
      * @param {string} [options.omission='...'] The string to indicate text is omitted.
      * @param {RegExp|string} [options.separator] The separator pattern to truncate to.
@@ -21143,7 +21143,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @category Util
      * @param {Function|Object} [object=lodash] The destination object.
      * @param {Object} source The object of functions to add.
-     * @param {Object} [options={}] The options object.
+     * @param {Object} [options={}] The responsive object.
      * @param {boolean} [options.chain=true] Specify whether mixins are chainable.
      * @returns {Function|Object} Returns `object`.
      * @example
@@ -22815,7 +22815,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -22829,20 +22829,20 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/chunk loaded */
 /******/ 	(() => {
@@ -22875,7 +22875,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			return result;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -22887,7 +22887,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -22899,12 +22899,12 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			}
 /******/ 		})();
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -22915,7 +22915,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -22924,11 +22924,11 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		// no baseURI
-/******/ 		
+/******/
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
@@ -22936,19 +22936,19 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0
 /******/ 		};
-/******/ 		
+/******/
 /******/ 		// no chunk on demand loading
-/******/ 		
+/******/
 /******/ 		// no prefetching
-/******/ 		
+/******/
 /******/ 		// no preloaded
-/******/ 		
+/******/
 /******/ 		// no HMR
-/******/ 		
+/******/
 /******/ 		// no HMR manifest
-/******/ 		
+/******/
 /******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
+/******/
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 /******/ 			var [chunkIds, moreModules, runtime] = data;
@@ -22973,20 +22973,20 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
-/******/ 		
+/******/
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+/******/
 /******/ })()
 ;
