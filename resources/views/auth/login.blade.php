@@ -52,5 +52,12 @@
                 </x-button>
             </div>
         </form>
+
+        <a href="/register">
+            <x-button class="float-right mt-3">
+                {{ __('Register') }}
+            </x-button>
+        </a>
+
     </x-auth-card>
 </x-guest-layout>
