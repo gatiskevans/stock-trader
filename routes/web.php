@@ -15,6 +15,10 @@ Route::post('/search', [StocksController::class, 'search'])
     ->middleware(['auth', 'verified'])
     ->name('stock.search');
 
+Route::get('/search/{company}', [StocksController::class, 'showCompany'])
+    ->middleware(['auth', 'verified'])
+    ->name('company');
+
 Route::get('/stocks', [StocksController::class, 'showStocks'])
     ->middleware(['auth', 'verified'])
     ->name('stocks');
