@@ -8,6 +8,7 @@
 
                 <!-- Navigation Links -->
                 @include('layouts.partials.navigation.dashboard-link')
+                @include('layouts.partials.navigation.transactions-link')
                 @include('layouts.partials.navigation.stocks-link')
 
             </div>

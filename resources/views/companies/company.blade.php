@@ -17,10 +17,13 @@
                         <div>{{ $company->getCountry() }}</div>
                         <div>{{ $company->getCurrency() }}</div>
                         <div>{{ $company->getPhone() }}</div>
-                        <div>{{ $company->getWebUrl() }}</div>
                         <div>{{ $company->getTicker() }}</div>
                         <div>{{ $company->getShareOutstanding() }}</div>
                         <div>{{ $company->getExchange() }} </div>
+
+                        <a href="{{ $company->getWebUrl() }}" target="_blank" class="text-blue-700 hover:text-blue-800">
+                            {{ $company->getWebUrl() }}
+                        </a>
 
                     </div>
                     <div class="grid grid-cols-7 mt-10">
@@ -55,6 +58,26 @@
                         </div>
 
                     </div>
+
+                    <div class="text-red-500 mt-10 grid justify-items-center font-extrabold text-4xl">
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        @endif
+                    </div>
+
+                    <form method="post" action="{{ route('stock.buy') }}" class="mt-10 grid justify-items-center">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" value="{{ $company->getTicker() }}" name="ticker" />
+                        <label for="amount" class="text-4xl mb-2">Buy Stock</label>
+                        <input type="text" name="amount" placeholder="See Your Company Here For 1000$" required />
+                        <x-button type="submit" class="mt-5">
+                            Buy
+                        </x-button>
+                    </form>
+
                 </div>
             </div>
         </div>

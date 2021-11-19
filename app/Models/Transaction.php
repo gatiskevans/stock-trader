@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Stock extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_stocks';
+    protected $table = 'users_stocks_transactions';
 
     protected $fillable = [
-        'company',
-        'stock',
-        'quantity'
+        'stock_name',
+        'quantity',
+        'total_amount',
+        'status'
     ];
 
     public function user()
