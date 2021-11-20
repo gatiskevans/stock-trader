@@ -12,7 +12,7 @@ class CreateUsersStocksTransactionsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('stock_name');
-            $table->string('quantity');
+            $table->string('quantity')->default(0);
             $table->string('total_amount');
             $table->string('status');
             $table->timestamps();

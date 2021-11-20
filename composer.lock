@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "debd83faaaa64fdf2d06e3953016f25d",
+    "content-hash": "753b86cd3257779f420f5809fc5a45ac",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2742,6 +2742,60 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "spatie/opening-hours",
+            "version": "2.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/opening-hours.git",
+                "reference": "6a86c246624b8bd5fca502b056406e6c7b5fe7c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/opening-hours/zipball/6a86c246624b8bd5fca502b056406e6c7b5fe7c7",
+                "reference": "6a86c246624b8bd5fca502b056406e6c7b5fe7c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "kylekatarnls/multi-tester": "^1.1",
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\OpeningHours\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A helper to query and format a set of opening hours",
+            "homepage": "https://github.com/spatie/opening-hours",
+            "keywords": [
+                "hours",
+                "opening",
+                "opening-hours",
+                "schedule",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/opening-hours/issues",
+                "source": "https://github.com/spatie/opening-hours/tree/2.11.0"
+            },
+            "time": "2021-10-13T12:11:07+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7903,7 +7957,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

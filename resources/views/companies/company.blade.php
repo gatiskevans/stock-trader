@@ -59,13 +59,7 @@
 
                     </div>
 
-                    <div class="text-red-500 mt-10 grid justify-items-center font-extrabold text-4xl">
-                        @if($errors->any())
-                            @foreach($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
-                        @endif
-                    </div>
+                    @include('errors.errors')
 
                     <form method="post" action="{{ route('stock.buy') }}" class="mt-10 grid justify-items-center">
                         @csrf

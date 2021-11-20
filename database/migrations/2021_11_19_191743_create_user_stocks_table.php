@@ -13,7 +13,7 @@ class CreateUserStocksTable extends Migration
             $table->bigInteger('user_id')->index();
             $table->string('company');
             $table->string('stock');
-            $table->bigInteger('quantity');
+            $table->bigInteger('quantity')->default(0);
             $table->timestamps();
         });
     }

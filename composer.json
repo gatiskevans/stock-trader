@@ -6,13 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "finnhub/client": "^1.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.5.0",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "ext-json": "*"
+        "spatie/opening-hours": "^2.11"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

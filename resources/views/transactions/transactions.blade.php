@@ -10,9 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    @foreach($transactions as $transactions)
+                    @if($transactions->count() < 1)
+                        <div>
+                            The List Is Empty
+                        </div>
+                    @endif
 
-                        {{ $transaction->stock_name }}
+                    @foreach($transactions->get() as $transaction)
+
+                        <div>{{ $transaction->stock_name }}</div>
+                        <div>{{ $transaction->quantity }}</div>
+                        <div>{{ $transaction->total_amount }}</div>
+                        <div>{{ $transaction->status }}</div>
+                        <div>{{ $transaction->created_at }}</div>
 
                     @endforeach
 

@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Stocks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Companies\CompanyProfile;
-use App\Models\QuoteData;
-use App\Models\Transaction;
+use App\Http\Requests\BuyStocksRequest;
+use App\Http\Requests\SellStocksRequest;
+use App\Http\Requests\StocksRequest;
+use App\Models\Stock;
 use App\Repositories\StocksRepositories\FinnhubStocksRepository;
 use App\Repositories\StocksRepositories\StocksRepository;
+use App\Services\BuyStocksService;
+use App\Services\SanitizeInputService;
+use App\Services\SellStocksService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Throwable;
 
 class StocksController extends Controller
 {
@@ -23,11 +25,18 @@ class StocksController extends Controller
         $this->stocksRepository = $stocksRepository;
     }
 
-    public function search(Request $request): RedirectResponse
+    public function search(StocksRequest $request, SanitizeInputService $sanitizeInput): RedirectResponse
     {
-        $search = Str::snake(strtolower($request->get('search')));
+        $request->validate($request->rules());
 
-        $company = $this->stocksRepository->fetchData($search);
+        try {
+            $search = $sanitizeInput->execute($request->get('search'));
+            $company = $this->stocksRepository->fetchData($search);
+        } catch (Throwable $exception)
+        {
+            report($exception);
+            return redirect()->back();
+        }
 
         return redirect()->route('company', $company['displaySymbol']);
     }
@@ -45,40 +54,37 @@ class StocksController extends Controller
 
     public function showStocks(): View
     {
-        return view('stocks.stocks');
+        $stocks = Stock::where('user_id', auth()->user()->id);
+
+        return view('stocks.stocks', ['stocks' => $stocks]);
     }
 
-    public function buyStock(Request $request)
+    public function buyStock(BuyStocksRequest $request, BuyStocksService $service): RedirectResponse
     {
-        $companyData = $this->stocksRepository->companyProfile($request->get('ticker'));
-        $quoteData = $this->stocksRepository->quoteData($request->get('ticker'));
+        $request->validate($request->rules());
 
-        $user = Auth::user();
-
-        $totalAmount = $request->get('amount') * $quoteData->getCurrentPrice() * 100;
-
-        if($user->cash < $totalAmount){
-            return redirect()->back()->withErrors(['_error' => "Not Enough Money"]);
+        try {
+            $service->execute($request->get('ticker'), $request->get('amount'));
+        } catch (Throwable $exception)
+        {
+            report($exception);
+            return redirect()->back();
         }
-
-        $transaction = new Transaction([
-            'stock_name' => $companyData->getTicker(),
-            'quantity' => $request->get('amount'),
-            'total_amount' => $totalAmount,
-            'status' => 'Purchased'
-        ]);
-
-        //Associate current user with this transaction
-        $transaction->user()->associate($user);
-        $transaction->save();
-
-        $user->update(['cash' => $user->cash -= $totalAmount]);
 
         return redirect()->back();
     }
 
-    public function sellStock()
+    public function sellStock(SellStocksRequest $request, string $stock, SellStocksService $service): RedirectResponse
     {
+        $request->validate($request->rules());
 
+        try {
+            $service->execute($stock, $request->get('amount'));
+        } catch (Throwable $exception) {
+            report($exception);
+            return redirect()->back();
+        }
+
+        return redirect()->back();
     }
 }

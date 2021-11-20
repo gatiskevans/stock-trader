@@ -32,7 +32,7 @@ Route::post('/buy', [StocksController::class, 'buyStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.buy');
 
-Route::post('/sell', [StocksController::class, 'sellStock'])
+Route::post('/sell/{stock}', [StocksController::class, 'sellStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.sell');
 
