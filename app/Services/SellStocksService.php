@@ -58,6 +58,10 @@ class SellStocksService
             'Sold'
         );
 
+        $amount > 1 ? $response = "stocks" : $response = "stock";
+        $total = number_format($totalAmount/100,2);
+        session()->flash('message', "You sold $amount {$companyData->getTicker()} $response for $total USD");
+
         return redirect()->back();
     }
 }

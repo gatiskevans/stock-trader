@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Stocks\StocksController;
 use App\Http\Controllers\Transactions\TransactionsController;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,5 +36,9 @@ Route::post('/buy', [StocksController::class, 'buyStock'])
 Route::post('/sell/{stock}', [StocksController::class, 'sellStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.sell');
+
+Route::get('/stock/{stock}', [StocksController::class, 'showStock'])
+    ->middleware(['auth', 'verified'])
+    ->name('stock.view');
 
 require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@ class MarketOpenService
             'thursday' => ['16:00-23:00'],
             'friday' => ['16:00-23:00'],
             'saturday' => [],
-            'sunday' => ['00:00-23:59'],
+            'sunday' => [],
         ]);
 
         $currentTime = new DateTime('now');

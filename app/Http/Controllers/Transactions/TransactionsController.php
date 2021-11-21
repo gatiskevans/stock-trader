@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Transactions;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TransactionsController extends Controller
 {
     public function showTransactions(): View
     {
-        $transactions = Transaction::where('user_id', auth()->user()->id);
+        $transactions = Auth::user()->transactions()->orderBy('created_at', 'DESC')->paginate(15);
 
         return view('transactions.transactions', ['transactions' => $transactions]);
     }

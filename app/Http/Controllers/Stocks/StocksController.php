@@ -52,6 +52,13 @@ class StocksController extends Controller
         ]);
     }
 
+    public function showStock($stock): View
+    {
+        $quoteData = $this->stocksRepository->quoteData($stock);
+        $stock = Stock::where('stock', $stock)->first();
+        return view('stocks.stock', ['stock' => $stock, 'quote' => $quoteData]);
+    }
+
     public function showStocks(): View
     {
         $stocks = Stock::where('user_id', auth()->user()->id);
