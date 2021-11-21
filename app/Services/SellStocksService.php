@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\StockSoldEvent;
 use App\Repositories\StocksRepositories\FinnhubStocksRepository;
 use App\Repositories\TransactionsRepositories\MySQLTransactionsRepository;
 use Illuminate\Http\RedirectResponse;
@@ -60,7 +61,9 @@ class SellStocksService
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
         $total = number_format($totalAmount/100,2);
-        session()->flash('message', "You sold $amount {$companyData->getTicker()} $response for $total USD");
+        session()->flash('message', "You sold $amount $stock $response for $total USD");
+
+        StockSoldEvent::dispatch($user, $stock, $amount, $quoteData->getCurrentPrice(), $total);
 
         return redirect()->back();
     }

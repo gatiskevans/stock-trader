@@ -44,7 +44,6 @@ class FinnhubStocksRepository implements StocksRepository
         $url = "https://finnhub.io/api/v1/stock/profile2?symbol=".$symbol."&token=".$this->apiKey;
         $result = $this->client->request('GET', $url);
 
-
         $companyArray = json_decode($result->getBody(), true);
 
         Cache::put('company.profile.' . $symbol, $companyArray, now()->addMinutes(15));
@@ -60,6 +59,7 @@ class FinnhubStocksRepository implements StocksRepository
 
         $url = "https://finnhub.io/api/v1/quote?symbol=".$symbol."&token=".$this->apiKey;
         $result = $this->client->request('GET', $url);
+
 
         $quoteArray = json_decode($result->getBody(), true);
 

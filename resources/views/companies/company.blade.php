@@ -12,26 +12,26 @@
 
                     @include('messages.messages')
 
-                    <div class="grid-cols-3 grid justify-items-center">
+                    <div class="grid-cols-2 grid justify-items-center">
 
-                        <div class="bg-white p-4">
-                            <img src="{{ $company->getLogo() }}" alt="{{ $company->getName() }}" height="200" width="200"/>
-                        </div>
+                        <div class="grid grid-cols-2 justify-items-left font-bold bg-white p-4 border-2 border-black">
+                            <div>
+                                <img src="{{ $company->getLogo() }}" alt="{{ $company->getName() }}" height="200" width="200"/>
+                            </div>
+                            <div>
+                                <div class="text-3xl">{{ $company->getName() }}</div>
+                                <div>Country: {{ $company->getCountry() }}</div>
+                                <div>Currency: {{ $company->getCurrency() }}</div>
+                                <div>No: {{ $company->getPhone() }}</div>
+                                <div>Stock: {{ $company->getTicker() }}</div>
+                                <div>Share: {{ $company->getShareOutstanding() }}</div>
+                                <div>{{ $company->getExchange() }} </div>
 
-                        <div class="grid justify-items-left font-bold bg-white p-4 border-2 border-black">
-
-                            <div class="text-3xl">{{ $company->getName() }}</div>
-                            <div>Country: {{ $company->getCountry() }}</div>
-                            <div>Currency: {{ $company->getCurrency() }}</div>
-                            <div>No: {{ $company->getPhone() }}</div>
-                            <div>Stock: {{ $company->getTicker() }}</div>
-                            <div>Share: {{ $company->getShareOutstanding() }}</div>
-                            <div>{{ $company->getExchange() }} </div>
-
-                            <a href="{{ $company->getWebUrl() }}" target="_blank"
-                               class="text-blue-700 hover:text-blue-800">
-                                {{ $company->getWebUrl() }}
-                            </a>
+                                <a href="{{ $company->getWebUrl() }}" target="_blank"
+                                   class="text-blue-700 hover:text-blue-800">
+                                    {{ $company->getWebUrl() }}
+                                </a>
+                            </div>
                         </div>
                         <div class="font-bold bg-white p-4 border-2 border-black">
 

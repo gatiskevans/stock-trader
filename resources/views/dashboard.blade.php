@@ -11,6 +11,7 @@
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200">
 
                     @include('errors.errors')
+                    @include('messages.messages')
 
                     <form action="{{ route('stock.search') }}" method="post">
                         @csrf

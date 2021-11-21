@@ -18,7 +18,7 @@
                         <div class="font-bold">
                             <div class="text-5xl">{{ $stock->company }}</div>
                             <div class="text-1xl mt-3">Name of the Stock: {{ $stock->stock }}</div>
-                            <div class="text-1xl">Quantity You Own: {{ $stock->quantity }}</div>
+                            <div class="text-1xl">Stocks You Own: {{ $stock->quantity }}</div>
                             <div class="text-1xl">Stock Purchased At: {{ $stock->created_at }}</div>
                             <div class="text-1xl mb-3">Last Purchase At: {{ $stock->updated_at }}</div>
 
