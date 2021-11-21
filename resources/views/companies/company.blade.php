@@ -14,7 +14,7 @@
 
                     <div class="grid-cols-3 grid justify-items-center">
 
-                        <div class="bg-white p-4 border-2 border-black">
+                        <div class="bg-white p-4">
                             <img src="{{ $company->getLogo() }}" alt="{{ $company->getName() }}" height="200" width="200"/>
                         </div>
 
