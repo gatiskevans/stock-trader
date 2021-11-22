@@ -52,7 +52,7 @@ class StocksController extends Controller
         ]);
     }
 
-    public function showStock($stock, $price): View
+    public function showStock(string $stock, int $price): View
     {
         $quoteData = $this->stocksRepository->quoteData($stock);
         $stock = Stock::where([

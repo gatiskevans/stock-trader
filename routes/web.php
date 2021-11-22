@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Funds\FundsController;
 use App\Http\Controllers\Stocks\StocksController;
 use App\Http\Controllers\Transactions\TransactionsController;
 use App\Models\Stock;
@@ -40,5 +41,13 @@ Route::post('/sell/{stock}/{price}', [StocksController::class, 'sellStock'])
 Route::get('/stock/{stock}/{price}', [StocksController::class, 'showStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.view');
+
+Route::get('/funds', [FundsController::class, 'showFunds'])
+    ->middleware(['auth', 'verified'])
+    ->name('funds.show');
+
+Route::post('/add/funds', [FundsController::class, 'addFunds'])
+    ->middleware(['auth', 'verified'])
+    ->name('funds.add');
 
 require __DIR__.'/auth.php';
