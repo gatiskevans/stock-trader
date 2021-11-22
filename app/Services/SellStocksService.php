@@ -19,7 +19,7 @@ class SellStocksService
         $this->transactionsRepository = $transactionsRepository;
     }
 
-    public function execute(string $stock, int $amount): RedirectResponse
+    public function execute(string $stock, int $price, int $amount): RedirectResponse
     {
         $companyData = $this->stocksRepository->companyProfile($stock);
         $quoteData = $this->stocksRepository->quoteData($stock);
@@ -36,7 +36,7 @@ class SellStocksService
 
         $totalAmount = $amount * $quoteData->getCurrentPrice() * 100;
 
-        $userStocks = $this->stocksRepository->getOne($user->id, $stock);
+        $userStocks = $this->stocksRepository->getOne($user->id, $stock, $price);
 
         if($userStocks->quantity < $amount){
             return redirect()->back()->withErrors([

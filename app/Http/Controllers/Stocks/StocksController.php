@@ -52,10 +52,13 @@ class StocksController extends Controller
         ]);
     }
 
-    public function showStock($stock): View
+    public function showStock($stock, $price): View
     {
         $quoteData = $this->stocksRepository->quoteData($stock);
-        $stock = Stock::where('stock', $stock)->first();
+        $stock = Stock::where([
+            'stock' => $stock,
+            'stock_price' => $price
+        ])->first();
         return view('stocks.stock', ['stock' => $stock, 'quote' => $quoteData]);
     }
 
@@ -81,12 +84,12 @@ class StocksController extends Controller
         return redirect()->back();
     }
 
-    public function sellStock(SellStocksRequest $request, string $stock, SellStocksService $service): RedirectResponse
+    public function sellStock(SellStocksRequest $request, string $stock, int $price, SellStocksService $service): RedirectResponse
     {
         $request->validate($request->rules());
 
         try {
-            $service->execute($stock, $request->get('amount'));
+            $service->execute($stock, $price, $request->get('amount'));
         } catch (Throwable $exception) {
             report($exception);
             return redirect()->back();

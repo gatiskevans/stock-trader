@@ -22,7 +22,7 @@
                             <div class="text-1xl">Stock Purchased At: {{ $stock->created_at }}</div>
                             <div class="text-1xl mb-3">Last Purchase At: {{ $stock->updated_at }}</div>
 
-                            <form method="post" action="{{ route('stock.sell', ['stock' => $stock->stock]) }}">
+                            <form method="post" action="{{ route('stock.sell', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
                                 @csrf
                                 <input type="number" class="rounded" name="amount"
                                        value="{{ $stock->quantity }}"/>

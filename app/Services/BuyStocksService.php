@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Convert\Convert;
 use App\Events\StockPurchasedEvent;
 use App\Repositories\StocksRepositories\FinnhubStocksRepository;
 use App\Repositories\TransactionsRepositories\MySQLTransactionsRepository;
@@ -26,7 +27,8 @@ class BuyStocksService
 
         $user = Auth::user();
 
-        $totalAmount = $amount * $quoteData->getCurrentPrice() * 100;
+        $price = Convert::DollarsToCents($quoteData->getCurrentPrice());
+        $totalAmount = $amount * $price;
 
         $range = (new MarketOpenService())->execute();
 
@@ -48,8 +50,8 @@ class BuyStocksService
             'Purchased'
         );
 
-        $stockData = $this->stocksRepository->getOne($user->id, $companyData->getTicker());
-        $this->stocksRepository->save($user, $companyData, $amount, $totalAmount, $stockData);
+        $stockData = $this->stocksRepository->getOne($user->id, $companyData->getTicker(), $price);
+        $this->stocksRepository->save($user, $companyData, $amount, $totalAmount, $price, $stockData);
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
         $total = number_format($totalAmount/100,2);

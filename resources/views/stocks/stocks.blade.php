@@ -22,7 +22,7 @@
                                 <div class="text-2xl font-bold mb-3 grid grid-cols-3 pt-3 justify-items-center">
                                     <div>Stock Name: {{ $stock->stock }}</div>
                                     <div>Number of Stocks: {{ $stock->quantity }}</div>
-                                    <form method="get" action="{{ route('stock.view', ['stock' => $stock->stock]) }}">
+                                    <form method="get" action="{{ route('stock.view', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
                                         <x-button>View</x-button>
                                     </form>
                                 </div>

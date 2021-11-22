@@ -2,6 +2,7 @@
 
 namespace App\Repositories\StocksRepositories;
 
+use App\Convert\Convert;
 use App\Models\Companies\CompanyProfile;
 use App\Models\QuoteData;
 use App\Models\Stock;
@@ -68,22 +69,22 @@ class FinnhubStocksRepository implements StocksRepository
         return new QuoteData($quoteArray);
     }
 
-    public function getOne(int $userId, string $ticker): ?Stock
+    public function getOne(int $userId, string $ticker, float $stockPrice): ?Stock
     {
-        $stock = Stock::where([
+        return Stock::where([
             'user_id' => $userId,
-            'stock' => $ticker
+            'stock' => $ticker,
+            'stock_price' => $stockPrice
         ])->first();
-
-        return $stock;
     }
 
-    public function save(Authenticatable $user, CompanyProfile $companyProfile, int $amount, int $total, ?Stock $stock = null): void
+    public function save(Authenticatable $user, CompanyProfile $companyProfile, int $amount, int $total, float $stockPrice, ?Stock $stock = null): void
     {
         $user->stocks()->updateOrCreate([
             'user_id' => $user->id,
             'company' => $companyProfile->getName(),
-            'stock' => $companyProfile->getTicker()
+            'stock' => $companyProfile->getTicker(),
+            'stock_price' => $stockPrice
         ], [
             'quantity' => isset($stock) ? $stock->quantity + $amount : $amount
         ]);

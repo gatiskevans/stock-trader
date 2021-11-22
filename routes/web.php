@@ -33,11 +33,11 @@ Route::post('/buy', [StocksController::class, 'buyStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.buy');
 
-Route::post('/sell/{stock}', [StocksController::class, 'sellStock'])
+Route::post('/sell/{stock}/{price}', [StocksController::class, 'sellStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.sell');
 
-Route::get('/stock/{stock}', [StocksController::class, 'showStock'])
+Route::get('/stock/{stock}/{price}', [StocksController::class, 'showStock'])
     ->middleware(['auth', 'verified'])
     ->name('stock.view');
 
