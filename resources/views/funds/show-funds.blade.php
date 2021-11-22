@@ -20,6 +20,7 @@
                     <div class="font-bold my-10">
                         <form action="{{ route('funds.add') }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <label for="cash" class="text-3xl">Add Funds</label><br/>
                             <input type="text" name="cash" id="cash" class="mt-5 rounded" /><br/>
                             <x-button class="mt-5">Add</x-button>

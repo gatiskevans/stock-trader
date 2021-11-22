@@ -46,7 +46,7 @@ Route::get('/funds', [FundsController::class, 'showFunds'])
     ->middleware(['auth', 'verified'])
     ->name('funds.show');
 
-Route::post('/add/funds', [FundsController::class, 'addFunds'])
+Route::put('/add/funds', [FundsController::class, 'addFunds'])
     ->middleware(['auth', 'verified'])
     ->name('funds.add');
 
