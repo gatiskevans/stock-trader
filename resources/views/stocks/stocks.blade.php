@@ -14,6 +14,7 @@
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200">
 
                     @include('open.open')
+                    @include('messages.messages')
 
                     @if($stocks->count() < 1)
                         <div class="font-bold text-3xl">
