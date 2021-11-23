@@ -13,10 +13,10 @@ class StockPurchasedEvent
     private string $ticker;
     private int $amount;
     private float $currentPrice;
-    private float $total;
+    private string $total;
     private Authenticatable $user;
 
-    public function __construct(Authenticatable $user, string $ticker, int $amount, float $currentPrice, float $total)
+    public function __construct(Authenticatable $user, string $ticker, int $amount, float $currentPrice, string $total)
     {
         $this->ticker = $ticker;
         $this->amount = $amount;
@@ -40,7 +40,7 @@ class StockPurchasedEvent
         return $this->currentPrice;
     }
 
-    public function getTotal(): float
+    public function getTotal(): string
     {
         return $this->total;
     }

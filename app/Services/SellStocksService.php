@@ -60,7 +60,7 @@ class SellStocksService
         );
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
-        $total = (float) number_format($totalAmount/100,2);
+        $total = number_format($totalAmount/100,2);
         session()->flash('message', "You sold $amount $stock $response for $total USD");
         StockSoldEvent::dispatch($user, $stock, $amount, $quoteData->getCurrentPrice(), $total);
 

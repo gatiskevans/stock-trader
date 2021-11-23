@@ -10,7 +10,7 @@
 
             <span class="pr-4">{{ $transactions->links() }}</span>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200">
 
                     @if($transactions->count() < 1)

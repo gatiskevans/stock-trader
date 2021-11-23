@@ -15,9 +15,9 @@ class StockSoldEvent
     private string $ticker;
     private int $quantity;
     private float $currentPrice;
-    private float $total;
+    private string $total;
 
-    public function __construct(Authenticatable $user, string $ticker, int $quantity, float $currentPrice, float $total)
+    public function __construct(Authenticatable $user, string $ticker, int $quantity, float $currentPrice, string $total)
     {
         $this->user = $user;
         $this->ticker = $ticker;
@@ -46,7 +46,7 @@ class StockSoldEvent
         return $this->currentPrice;
     }
 
-    public function getTotal(): float
+    public function getTotal(): string
     {
         return $this->total;
     }
