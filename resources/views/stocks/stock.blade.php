@@ -42,7 +42,7 @@
                                 <p>Profit per Stock:
                                     <span
                                         class="@if(number_format($profit/100,2) >= 0) text-green-500 @else text-red-500 @endif">
-                                    @if($profit >= 0) +{{ $profit }} USD @else {{ $profit }} USD @endif
+                                    @if($profit >= 0) +@endif{{ $profit }} USD
                                     </span>
                                 </p>
                             </div>
