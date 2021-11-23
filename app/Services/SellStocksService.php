@@ -28,7 +28,7 @@ class SellStocksService
 
         $range = (new MarketOpenService())->execute();
 
-        if(!isset($range)){
+        if (!isset($range)) {
             return redirect()->back()->withErrors([
                 '_errors' => "Stock market works only from 16:00 - 23:00 on working days"
             ]);
@@ -38,14 +38,14 @@ class SellStocksService
 
         $userStocks = $this->stocksRepository->getOne($user->id, $stock, $price);
 
-        if($userStocks->quantity < $amount){
+        if ($userStocks->quantity < $amount) {
             return redirect()->back()->withErrors([
                 '_errors' => "You don't have enough stocks"
             ]);
         }
 
         $userStocks->update(['quantity' => $userStocks->quantity -= $amount]);
-        if($userStocks->quantity == 0) {
+        if ($userStocks->quantity == 0) {
             $userStocks->delete();
         }
 
@@ -60,7 +60,7 @@ class SellStocksService
         );
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
-        $total = number_format($totalAmount/100,2);
+        $total = number_format($totalAmount / 100, 2);
         session()->flash('message', "You sold $amount $stock $response for $total USD");
         StockSoldEvent::dispatch($user, $stock, $amount, $quoteData->getCurrentPrice(), $total);
 

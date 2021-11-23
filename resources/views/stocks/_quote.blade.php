@@ -9,7 +9,7 @@
 <div>
     <p>Change:
         <span class="@if($quote->getChange() > 0) text-green-500 @else text-red-500 @endif">
-                                    {{ $quote->getChange() }} USD
+                                    {{ number_format($quote->getChange(), 3) }} USD
                                 </span>
     </p>
 </div>

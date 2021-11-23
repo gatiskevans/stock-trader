@@ -13,9 +13,9 @@ class SoldMail extends Mailable
     private string $ticker;
     private int $quantity;
     private float $currentPrice;
-    private float $total;
+    private string $total;
 
-    public function __construct(string $ticker, int $quantity, float $currentPrice, float $total)
+    public function __construct(string $ticker, int $quantity, float $currentPrice, string $total)
     {
         $this->ticker = $ticker;
         $this->quantity = $quantity;

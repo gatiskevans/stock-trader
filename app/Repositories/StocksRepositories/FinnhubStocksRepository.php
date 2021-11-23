@@ -23,11 +23,11 @@ class FinnhubStocksRepository implements StocksRepository
 
     public function fetchData(string $query)
     {
-        if(Cache::has('company.name.' . $query)){
+        if (Cache::has('company.name.' . $query)) {
             return Cache::get('company.name.' . $query);
         }
 
-        $url = "https://finnhub.io/api/v1/search?q=".$query."&token=". $this->apiKey;
+        $url = "https://finnhub.io/api/v1/search?q=" . $query . "&token=" . $this->apiKey;
         $result = $this->client->request('GET', $url);
         $data = json_decode($result->getBody(), true);
 
@@ -38,11 +38,11 @@ class FinnhubStocksRepository implements StocksRepository
 
     public function companyProfile(string $symbol): CompanyProfile
     {
-        if(Cache::has('company.profile.' . $symbol)){
+        if (Cache::has('company.profile.' . $symbol)) {
             return new CompanyProfile(Cache::get('company.profile.' . $symbol));
         }
 
-        $url = "https://finnhub.io/api/v1/stock/profile2?symbol=".$symbol."&token=".$this->apiKey;
+        $url = "https://finnhub.io/api/v1/stock/profile2?symbol=" . $symbol . "&token=" . $this->apiKey;
         $result = $this->client->request('GET', $url);
 
         $companyArray = json_decode($result->getBody(), true);
@@ -54,11 +54,11 @@ class FinnhubStocksRepository implements StocksRepository
 
     public function quoteData(string $symbol): QuoteData
     {
-        if(Cache::has('company.quote.' . $symbol)){
+        if (Cache::has('company.quote.' . $symbol)) {
             return new QuoteData(Cache::get('company.quote.' . $symbol));
         }
 
-        $url = "https://finnhub.io/api/v1/quote?symbol=".$symbol."&token=".$this->apiKey;
+        $url = "https://finnhub.io/api/v1/quote?symbol=" . $symbol . "&token=" . $this->apiKey;
         $result = $this->client->request('GET', $url);
 
 

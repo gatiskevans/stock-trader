@@ -26,7 +26,7 @@ class MarketOpenService
 
         $range = $marketOpen->currentOpenRange($currentTime);
 
-        if($range) return $range;
+        if ($range) return $range;
         return null;
     }
 }

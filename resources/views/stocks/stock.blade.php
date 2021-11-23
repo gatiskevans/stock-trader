@@ -17,12 +17,16 @@
 
                         <div class="font-bold">
                             <div class="text-5xl">{{ $stock->company }}</div>
-                            <div class="text-1xl mt-3">Name of the Stock: {{ $stock->stock }}</div>
+                            <div class="text-1xl mt-3">Price Per Stock When
+                                Purchased: {{ number_format($stock->stock_price/100,2) }}$
+                            </div>
+                            <div class="text-1xl">Name of the Stock: {{ $stock->stock }}</div>
                             <div class="text-1xl">Stocks You Own: {{ $stock->quantity }}</div>
                             <div class="text-1xl">Stock Purchased At: {{ $stock->created_at }}</div>
-                            <div class="text-1xl mb-3">Last Purchase At: {{ $stock->updated_at }}</div>
+                            <div class="text-1xl mb-3">Last Updated At: {{ $stock->updated_at }}</div>
 
-                            <form method="post" action="{{ route('stock.sell', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
+                            <form method="post"
+                                  action="{{ route('stock.sell', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
                                 @csrf
                                 <input type="number" class="rounded" name="amount"
                                        value="{{ $stock->quantity }}"/>
@@ -32,6 +36,15 @@
                         </div>
 
                         <div class="font-bold bg-white p-4 border-2 border-black">
+
+                            <div class="text-2xl mb-2">
+                                <p>Profit per Stock:
+                                    <span
+                                        class="@if(number_format($profit/100,2) >= 0) text-green-500 @else text-red-500 @endif">
+                                    @if($profit >= 0) +{{ $profit }} USD @else {{ $profit }} USD @endif
+                                    </span>
+                                </p>
+                            </div>
 
                             @include('stocks._quote')
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Stocks;
 
+use App\Convert\Convert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BuyStocksRequest;
 use App\Http\Requests\SellStocksRequest;
@@ -13,6 +14,7 @@ use App\Services\BuyStocksService;
 use App\Services\SanitizeInputService;
 use App\Services\SellStocksService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Throwable;
 
@@ -32,8 +34,7 @@ class StocksController extends Controller
         try {
             $search = $sanitizeInput->execute($request->get('search'));
             $company = $this->stocksRepository->fetchData($search);
-        } catch (Throwable $exception)
-        {
+        } catch (Throwable $exception) {
             report($exception);
             return redirect()->back();
         }
@@ -59,12 +60,16 @@ class StocksController extends Controller
             'stock' => $stock,
             'stock_price' => $price
         ])->first();
-        return view('stocks.stock', ['stock' => $stock, 'quote' => $quoteData]);
+
+        $profit = $stock->stock_price - ($quoteData->getCurrentPrice() * 100);
+        $profit = Convert::CentsToDollars($profit);
+
+        return view('stocks.stock', ['stock' => $stock, 'quote' => $quoteData, 'profit' => $profit]);
     }
 
     public function showStocks(): View
     {
-        $stocks = Stock::where('user_id', auth()->user()->id);
+        $stocks = Auth::user()->stocks()->orderBy('updated_at', 'DESC')->paginate(15);
 
         return view('stocks.stocks', ['stocks' => $stocks]);
     }
@@ -75,8 +80,7 @@ class StocksController extends Controller
 
         try {
             $service->execute($request->get('ticker'), $request->get('amount'));
-        } catch (Throwable $exception)
-        {
+        } catch (Throwable $exception) {
             report($exception);
             return redirect()->back();
         }
@@ -95,6 +99,6 @@ class StocksController extends Controller
             return redirect('stocks');
         }
 
-        return $result !== null ?  redirect()->back() : redirect('stocks');
+        return $result !== null ? redirect()->back() : redirect('stocks');
     }
 }
