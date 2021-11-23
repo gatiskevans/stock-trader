@@ -2,7 +2,6 @@
 
 namespace App\Repositories\StocksRepositories;
 
-use App\Convert\Convert;
 use App\Models\Companies\CompanyProfile;
 use App\Models\QuoteData;
 use App\Models\Stock;
@@ -60,7 +59,6 @@ class FinnhubStocksRepository implements StocksRepository
 
         $url = "https://finnhub.io/api/v1/quote?symbol=" . $symbol . "&token=" . $this->apiKey;
         $result = $this->client->request('GET', $url);
-
 
         $quoteArray = json_decode($result->getBody(), true);
 

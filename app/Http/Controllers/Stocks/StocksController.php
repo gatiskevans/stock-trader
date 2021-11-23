@@ -63,7 +63,7 @@ class StocksController extends Controller
             'stock_price' => $price
         ])->first();
 
-        $profit = $stock->stock_price - ($quoteData->getCurrentPrice() * 100);
+        $profit = ($quoteData->getCurrentPrice() * 100) - $stock->stock_price;
         $profit = Convert::CentsToDollars($profit);
 
         return view('stocks.stock', [
