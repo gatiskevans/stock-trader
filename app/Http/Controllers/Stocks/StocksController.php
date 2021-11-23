@@ -11,6 +11,7 @@ use App\Models\Stock;
 use App\Repositories\StocksRepositories\FinnhubStocksRepository;
 use App\Repositories\StocksRepositories\StocksRepository;
 use App\Services\BuyStocksService;
+use App\Services\MarketOpenService;
 use App\Services\SanitizeInputService;
 use App\Services\SellStocksService;
 use Illuminate\Http\RedirectResponse;
@@ -49,7 +50,8 @@ class StocksController extends Controller
 
         return view('companies.company', [
             'company' => $companyData,
-            'quote' => $quoteData
+            'quote' => $quoteData,
+            'open' => (new MarketOpenService())->execute()
         ]);
     }
 
@@ -64,14 +66,19 @@ class StocksController extends Controller
         $profit = $stock->stock_price - ($quoteData->getCurrentPrice() * 100);
         $profit = Convert::CentsToDollars($profit);
 
-        return view('stocks.stock', ['stock' => $stock, 'quote' => $quoteData, 'profit' => $profit]);
+        return view('stocks.stock', [
+            'stock' => $stock,
+            'quote' => $quoteData,
+            'profit' => $profit,
+            'open' => (new MarketOpenService())->execute()
+        ]);
     }
 
     public function showStocks(): View
     {
         $stocks = Auth::user()->stocks()->orderBy('updated_at', 'DESC')->paginate(15);
 
-        return view('stocks.stocks', ['stocks' => $stocks]);
+        return view('stocks.stocks', ['stocks' => $stocks, 'open' => (new MarketOpenService())->execute()]);
     }
 
     public function buyStock(BuyStocksRequest $request, BuyStocksService $service): RedirectResponse

@@ -34,7 +34,7 @@ class BuyStocksService
 
         if (!isset($range)) {
             return redirect()->back()->withErrors([
-                '_errors' => "Stock market works only from 16:00 - 23:00 on working days"
+                '_errors' => "Market is closed. You cannot purchase any stocks."
             ]);
         }
 

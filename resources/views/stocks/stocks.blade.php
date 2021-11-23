@@ -13,6 +13,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200">
 
+                    @include('open.open')
+
                     @if($stocks->count() < 1)
                         <div class="font-bold text-3xl">
                             The List Is Empty
@@ -22,8 +24,9 @@
                         @foreach($stocks->all() as $stock)
                             <div
                                 class="rounded p-3 bg-gradient-to-tr from-blue-400 to-blue-700 mt-3">
-                                <div class="text-2xl font-bold mb-3 grid grid-cols-3 pt-3 justify-items-center">
+                                <div class="text-2xl font-bold mb-3 grid grid-cols-4 pt-3 justify-items-center">
                                     <div>Stock Name: {{ $stock->stock }}</div>
+                                    <div>Initial Price: {{ number_format($stock->stock_price/100,2) }}$</div>
                                     <div>Number of Stocks: {{ $stock->quantity }}</div>
                                     <form method="get" action="{{ route('stock.view', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
                                         <x-button>View</x-button>

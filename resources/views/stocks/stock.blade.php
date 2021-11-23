@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200 ">
 
+                    @include('open.open')
                     @include('errors.errors')
                     @include('messages.messages')
 
