@@ -54,7 +54,7 @@ class BuyStocksService
         $this->stocksRepository->save($user, $companyData, $amount, $totalAmount, $price, $stockData);
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
-        $total = number_format($totalAmount/100,2);
+        $total = (float) number_format($totalAmount/100,2);
         session()->flash('message', "Purchase Successful. You bought $amount {$companyData->getTicker()} $response for $total USD");
 
         StockPurchasedEvent::dispatch($user, $ticker, $amount, $quoteData->getCurrentPrice(), $total);

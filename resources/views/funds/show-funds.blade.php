@@ -22,11 +22,11 @@
                             @csrf
                             @method('PUT')
                             <label for="cash" class="text-3xl">Add Funds</label><br/>
-                            <input type="text" name="cash" id="cash" class="mt-5 rounded" /><br/>
+                            <input type="text" name="cash" id="cash" class="mt-5 rounded"/><br/>
                             <x-button class="mt-5">Add</x-button>
                         </form>
                     </div>
-
+                    
                     @include('messages.messages')
 
                 </div>

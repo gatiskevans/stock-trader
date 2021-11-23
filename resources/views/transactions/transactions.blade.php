@@ -45,6 +45,7 @@
                 </div>
 
             </div>
+            <span class="pr-4">{{ $transactions->links() }}</span>
         </div>
     </div>
 </x-app-layout>

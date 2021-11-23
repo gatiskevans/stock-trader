@@ -19,7 +19,7 @@ class SellStocksService
         $this->transactionsRepository = $transactionsRepository;
     }
 
-    public function execute(string $stock, int $price, int $amount): RedirectResponse
+    public function execute(string $stock, int $price, int $amount): ?RedirectResponse
     {
         $companyData = $this->stocksRepository->companyProfile($stock);
         $quoteData = $this->stocksRepository->quoteData($stock);
@@ -60,11 +60,10 @@ class SellStocksService
         );
 
         $amount > 1 ? $response = "stocks" : $response = "stock";
-        $total = number_format($totalAmount/100,2);
+        $total = (float) number_format($totalAmount/100,2);
         session()->flash('message', "You sold $amount $stock $response for $total USD");
-
         StockSoldEvent::dispatch($user, $stock, $amount, $quoteData->getCurrentPrice(), $total);
 
-        return redirect()->back();
+        return $this->stocksRepository->getOne($user->id, $stock, $price) ? redirect()->back() : null;
     }
 }

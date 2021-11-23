@@ -89,12 +89,12 @@ class StocksController extends Controller
         $request->validate($request->rules());
 
         try {
-            $service->execute($stock, $price, $request->get('amount'));
+            $result = $service->execute($stock, $price, $request->get('amount'));
         } catch (Throwable $exception) {
             report($exception);
-            return redirect()->back();
+            return redirect('stocks');
         }
 
-        return redirect()->back();
+        return $result !== null ?  redirect()->back() : redirect('stocks');
     }
 }
