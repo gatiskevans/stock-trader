@@ -6,6 +6,12 @@
                 Cash: {{ number_format(Auth::user()->cash/100,2) }} $ USD
             </div>
 
+            <div class="font-bold flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                Profits: <span class="@if(Auth::user()->profit >= 0) text-green-400 @else text-red-500 @endif">
+                    {{ number_format(Auth::user()->profit/100,2) }} $ USD
+                </span>
+            </div>
+
             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                 <div>{{ Auth::user()->name }}</div>
 

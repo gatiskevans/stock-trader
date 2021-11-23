@@ -49,7 +49,10 @@ class SellStocksService
             $userStocks->delete();
         }
 
-        $user->update(['cash' => $user->cash += $totalAmount]);
+        $user->update([
+            'cash' => $user->cash += $totalAmount,
+            'profit' => $user->profit = ($quoteData->getCurrentPrice() * 100 - $userStocks->stock_price) * $amount + $user->profit
+        ]);
 
         $this->transactionsRepository->save(
             $user,
