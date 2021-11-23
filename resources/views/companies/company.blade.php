@@ -23,9 +23,9 @@
                                 <div class="text-3xl">{{ $company->getName() }}</div>
                                 <div>Country: {{ $company->getCountry() }}</div>
                                 <div>Currency: {{ $company->getCurrency() }}</div>
-                                <div>No: {{ $company->getPhone() }}</div>
+                                <div>Phone No: {{ $company->getPhone() }}</div>
                                 <div>Stock: {{ $company->getTicker() }}</div>
-                                <div>Share: {{ $company->getShareOutstanding() }}</div>
+                                <div>Share Outstanding: {{ $company->getShareOutstanding() }}</div>
                                 <div>{{ $company->getExchange() }} </div>
 
                                 <a href="{{ $company->getWebUrl() }}" target="_blank"
