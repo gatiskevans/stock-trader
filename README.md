@@ -8,7 +8,9 @@ In order to run the program:
 * PHP 7.4 or higher
 * MySQL 5.7+ or higher
 * Composer installed
+* Node.js installed
 * Run `composer install` within the same folder where composer.json file is located
+* Run `npm install` within the same folder where package.json file is located
 * Run `php artisan serve` to start the server on your local machine
 * Run `php artisan queue:listen`
 * Rename .env.example to .env
