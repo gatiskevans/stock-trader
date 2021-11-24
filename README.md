@@ -1,6 +1,7 @@
 # Stock Trader App
 
 This program is dedicated for viewing, buying and selling various company stocks.
+Program uses Finnhub API for data.
 
 In order to run the program: 
 * [Download the project](https://github.com/gatiskevans/stock-trader/archive/refs/heads/main.zip)
@@ -15,4 +16,5 @@ In order to run the program:
 * Set up MAIL configuration in .env file of your mailbox
     * If you're using Mailtrap - under Integrations choose option Laravel 7+ and copy provided values in .env file's corresponding keys
     * For any other mailboxes you should get values for host, port, username, password and encryption in order to configure MAIL
+* Register to [Finnhub API](https://finnhub.io/) and provide your API key in .env file as a value for FINNHUB_API key
 * Enjoy! 
