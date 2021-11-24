@@ -24,9 +24,9 @@
                             <div
                                 class="rounded p-3 bg-gradient-to-tr from-blue-400 to-blue-700 mt-3">
                                 <div class="text-2xl font-bold mb-3 grid grid-cols-4 pt-3 justify-items-center">
-                                    <div>Stock Name: {{ $stock->stock }}</div>
                                     <div>Initial Price: {{ number_format($stock->stock_price/100,2) }}$</div>
                                     <div>Number of Stocks: {{ $stock->quantity }}</div>
+                                    <div>Total Value: {{ number_format($stock->quantity * $stock->stock_price/100,2) }}$</div>
                                     <form method="get" action="{{ route('stock.view', ['stock' => $stock->stock, 'price' => $stock->stock_price]) }}">
                                         <x-button>View</x-button>
                                     </form>
