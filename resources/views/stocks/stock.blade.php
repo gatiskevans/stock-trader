@@ -21,6 +21,12 @@
                             <div class="text-1xl mt-3">Price Per Stock When
                                 Purchased: {{ number_format($stock->stock_price/100,2) }}$
                             </div>
+                            <div class="text-1xl">
+                                Total Value:
+                                <span class="text-green-600">
+                                    {{ number_format($stock->quantity *  $quote->getCurrentPrice(), 2) }} USD
+                                </span>
+                            </div>
                             <div class="text-1xl">Name of the Stock: {{ $stock->stock }}</div>
                             <div class="text-1xl">Stocks You Own: {{ $stock->quantity }}</div>
                             <div class="text-1xl">Stock Purchased At: {{ $stock->created_at }}</div>
@@ -39,6 +45,12 @@
                         <div class="font-bold bg-white p-4 border-2 border-black">
 
                             <div class="text-2xl mb-2">
+                                <p>Total profit:
+                                    <span
+                                        class="@if(number_format($profit/100*$stock->quantity,2) >= 0) text-green-500 @else text-red-500 @endif">
+                                    @if($profit*$stock->quantity >= 0) +@endif{{ $profit*$stock->quantity }} USD
+                                    </span>
+                                </p>
                                 <p>Profit per Stock:
                                     <span
                                         class="@if(number_format($profit/100,2) >= 0) text-green-500 @else text-red-500 @endif">

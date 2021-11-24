@@ -8,16 +8,14 @@ use App\Http\Requests\BuyStocksRequest;
 use App\Http\Requests\SellStocksRequest;
 use App\Http\Requests\StocksRequest;
 use App\Models\Stock;
-use App\Repositories\StocksRepositories\FinnhubStocksRepository;
 use App\Repositories\StocksRepositories\StocksRepository;
 use App\Services\BuyStocksService;
 use App\Services\MarketOpenService;
 use App\Services\SanitizeInputService;
 use App\Services\SellStocksService;
-use Exception;
-use Finnhub\ApiException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Throwable;
 
@@ -81,9 +79,9 @@ class StocksController extends Controller
         ]);
     }
 
-    public function showStocks(): View
+    public function showStocks(string $stock): View
     {
-        $stocks = Auth::user()->stocks()->orderBy('updated_at', 'DESC')->paginate(15);
+        $stocks = $this->stocksRepository->getCompaniesByStock($stock);
 
         return view('stocks.stocks', ['stocks' => $stocks, 'open' => (new MarketOpenService())->execute()]);
     }
@@ -110,9 +108,21 @@ class StocksController extends Controller
             $result = $service->execute($stock, $price, $request->get('amount'));
         } catch (Throwable $exception) {
             report($exception);
-            return redirect('stocks');
+            return redirect('stocks/{stock}');
         }
 
-        return $result !== null ? redirect()->back() : redirect('stocks');
+        return $result !== null
+            ? redirect()->back()
+            : ( $this->stocksRepository->getOneByStock(Auth::user()->id, $stock)=== null
+                ? redirect('companies')
+                : Redirect::route('stocks', [$stock]));
+    }
+
+    public function showCompanies()
+    {
+        return view('companies.show-companies', [
+            'companies' => $this->stocksRepository->getCompanies(),
+            'open' => (new MarketOpenService())->execute()
+        ]);
     }
 }

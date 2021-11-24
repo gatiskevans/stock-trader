@@ -6,9 +6,11 @@ use App\Models\Companies\CompanyProfile;
 use App\Models\QuoteData;
 use App\Models\Stock;
 use Finnhub\Api\DefaultApi;
-use Finnhub\ApiException;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class FinnhubStocksRepository implements StocksRepository
 {
@@ -39,10 +41,6 @@ class FinnhubStocksRepository implements StocksRepository
         }
 
         $company = $this->apiClient->companyProfile2($symbol);
-
-        if($company->getName() === null){
-            throw new ApiException("You don't have access to this resource!");
-        }
 
         Cache::put('company.profile.' . $symbol, $company, now()->addMinutes(15));
 
@@ -83,5 +81,35 @@ class FinnhubStocksRepository implements StocksRepository
         ]);
 
         $user->update(['cash' => $user->cash -= $total]);
+    }
+
+    public function getCompanies(): array
+    {
+        $companies = [];
+        foreach(DB::table('user_stocks')->distinct('stock')->pluck('stock') as $key => $stock) {
+            $companies[$key][] = Stock::where([
+                'user_id' => Auth::user()->id,
+                'stock' => $stock
+            ])->first();
+            $companies[$key][] = DB::table('user_stocks')->where('stock', $stock)->sum('quantity');
+        }
+
+        return array_reverse($companies);
+    }
+
+    public function getCompaniesByStock(string $stock): Builder
+    {
+        return Stock::where([
+            'user_id' => Auth::user()->id,
+            'stock' => $stock
+        ]);
+    }
+
+    public function getOneByStock(int $userId, string $ticker): ?Stock
+    {
+        return Stock::where([
+            'user_id' => $userId,
+            'stock' => $ticker,
+        ])->first();
     }
 }

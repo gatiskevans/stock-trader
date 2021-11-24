@@ -12,7 +12,8 @@ In order to run the program:
 * Run `composer install` within the same folder where composer.json file is located
 * Run `npm install` within the same folder where package.json file is located
 * Run `php artisan serve` to start the server on your local machine
-* Run `php artisan queue:listen`
+* Run `php artisan queue:listen` and leave it running in background
+* Run `php artisan migrate` to create database tables
 * Rename .env.example to .env
 * You need to set up your database connection by providing your mysql DB_USERNAME and DB_PASSWORD in .env file
 * Set up MAIL configuration in .env file of your mailbox

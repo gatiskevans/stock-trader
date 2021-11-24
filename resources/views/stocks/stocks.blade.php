@@ -8,8 +8,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            {{ $stocks->links() }}
-
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
                 <div class="p-6 bg-gradient-to-tr from-gray-300 to-gray-400 border-b border-gray-200">
 
@@ -22,7 +20,7 @@
                         </div>
                     @endif
 
-                        @foreach($stocks->all() as $stock)
+                        @foreach($stocks->get() as $stock)
                             <div
                                 class="rounded p-3 bg-gradient-to-tr from-blue-400 to-blue-700 mt-3">
                                 <div class="text-2xl font-bold mb-3 grid grid-cols-4 pt-3 justify-items-center">
@@ -38,7 +36,6 @@
 
                 </div>
             </div>
-            {{ $stocks->links() }}
         </div>
     </div>
 </x-app-layout>

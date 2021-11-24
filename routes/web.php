@@ -22,7 +22,7 @@ Route::get('/search/{company}', [StocksController::class, 'showCompany'])
     ->middleware(['auth', 'verified'])
     ->name('company');
 
-Route::get('/stocks', [StocksController::class, 'showStocks'])
+Route::get('/stocks/{stock}', [StocksController::class, 'showStocks'])
     ->middleware(['auth', 'verified'])
     ->name('stocks');
 
@@ -49,5 +49,9 @@ Route::get('/funds', [FundsController::class, 'showFunds'])
 Route::put('/add/funds', [FundsController::class, 'addFunds'])
     ->middleware(['auth', 'verified'])
     ->name('funds.add');
+
+Route::get('/companies', [StocksController::class, 'showCompanies'])
+    ->middleware(['auth', 'verified'])
+    ->name('companies.show');
 
 require __DIR__.'/auth.php';
