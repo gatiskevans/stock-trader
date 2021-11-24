@@ -5,6 +5,7 @@ This program is dedicated for viewing, buying and selling various company stocks
 In order to run the program: 
 * [Download the project](https://github.com/gatiskevans/stock-trader/archive/refs/heads/main.zip)
 * PHP 7.4 or higher
+* MySQL 5.7+ or higher
 * Composer installed
 * Run `composer install` within the same folder where composer.json file is located
 * Run `php artisan serve` to start the server on your local machine
