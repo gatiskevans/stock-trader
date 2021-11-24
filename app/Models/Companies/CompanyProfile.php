@@ -2,6 +2,8 @@
 
 namespace App\Models\Companies;
 
+use Finnhub\Model\CompanyProfile2;
+
 class CompanyProfile
 {
     private string $country;
@@ -14,17 +16,17 @@ class CompanyProfile
     private string $shareOutstanding;
     private string $exchange;
 
-    public function __construct(array $companyData)
+    public function __construct(CompanyProfile2 $companyData)
     {
-        $this->country = $companyData['country'];
-        $this->currency = $companyData['currency'];
-        $this->logo = $companyData['logo'];
-        $this->name = $companyData['name'];
-        $this->phone = $companyData['phone'];
-        $this->weburl = $companyData['weburl'];
-        $this->ticker = $companyData['ticker'];
-        $this->shareOutstanding = $companyData['shareOutstanding'];
-        $this->exchange = $companyData['exchange'];
+        $this->country = $companyData->getCountry();
+        $this->currency = $companyData->getCurrency();
+        $this->logo = $companyData->getLogo();
+        $this->name = $companyData->getName();
+        $this->phone = $companyData->getPhone();
+        $this->weburl = $companyData->getWeburl();
+        $this->ticker = $companyData->getTicker();
+        $this->shareOutstanding = $companyData->getShareOutstanding();
+        $this->exchange = $companyData->getExchange();
     }
 
     public function getCountry(): string

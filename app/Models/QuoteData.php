@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Finnhub\Model\Quote;
+
 class QuoteData
 {
     private float $currentPrice;
@@ -12,15 +14,15 @@ class QuoteData
     private float $openPrice;
     private float $previousPrice;
 
-    public function __construct(array $quoteData)
+    public function __construct(Quote $quoteData)
     {
-        $this->currentPrice = $quoteData['c'];
-        $this->change = $quoteData['d'];
-        $this->percentChange = $quoteData['dp'];
-        $this->highPrice = $quoteData['h'];
-        $this->lowPrice = $quoteData['l'];
-        $this->openPrice = $quoteData['o'];
-        $this->previousPrice = $quoteData['pc'];
+        $this->currentPrice = $quoteData->getC();
+        $this->change = $quoteData->getD();
+        $this->percentChange = $quoteData->getDp();
+        $this->highPrice = $quoteData->getH();
+        $this->lowPrice = $quoteData->getL();
+        $this->openPrice = $quoteData->getO();
+        $this->previousPrice = $quoteData->getPc();
     }
 
     public function getCurrentPrice(): float

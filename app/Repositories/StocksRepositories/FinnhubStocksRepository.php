@@ -5,19 +5,18 @@ namespace App\Repositories\StocksRepositories;
 use App\Models\Companies\CompanyProfile;
 use App\Models\QuoteData;
 use App\Models\Stock;
-use GuzzleHttp\Client;
+use Finnhub\Api\DefaultApi;
+use Finnhub\ApiException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Cache;
 
 class FinnhubStocksRepository implements StocksRepository
 {
-    private Client $client;
-    private string $apiKey;
+    private DefaultApi $apiClient;
 
-    public function __construct(Client $client)
+    public function __construct(DefaultApi $apiClient)
     {
-        $this->client = $client;
-        $this->apiKey = env("FINNHUB_API");
+        $this->apiClient = $apiClient;
     }
 
     public function fetchData(string $query)
@@ -26,9 +25,7 @@ class FinnhubStocksRepository implements StocksRepository
             return Cache::get('company.name.' . $query);
         }
 
-        $url = "https://finnhub.io/api/v1/search?q=" . $query . "&token=" . $this->apiKey;
-        $result = $this->client->request('GET', $url);
-        $data = json_decode($result->getBody(), true);
+        $data = $this->apiClient->symbolSearch($query);
 
         Cache::put('company.name.' . $query, $data['result'][0], now()->addMinutes(15));
 
@@ -41,14 +38,15 @@ class FinnhubStocksRepository implements StocksRepository
             return new CompanyProfile(Cache::get('company.profile.' . $symbol));
         }
 
-        $url = "https://finnhub.io/api/v1/stock/profile2?symbol=" . $symbol . "&token=" . $this->apiKey;
-        $result = $this->client->request('GET', $url);
+        $company = $this->apiClient->companyProfile2($symbol);
 
-        $companyArray = json_decode($result->getBody(), true);
+        if($company->getName() === null){
+            throw new ApiException("You don't have access to this resource!");
+        }
 
-        Cache::put('company.profile.' . $symbol, $companyArray, now()->addMinutes(15));
+        Cache::put('company.profile.' . $symbol, $company, now()->addMinutes(15));
 
-        return new CompanyProfile($companyArray);
+        return new CompanyProfile($company);
     }
 
     public function quoteData(string $symbol): QuoteData
@@ -57,14 +55,11 @@ class FinnhubStocksRepository implements StocksRepository
             return new QuoteData(Cache::get('company.quote.' . $symbol));
         }
 
-        $url = "https://finnhub.io/api/v1/quote?symbol=" . $symbol . "&token=" . $this->apiKey;
-        $result = $this->client->request('GET', $url);
+        $quote = $this->apiClient->quote($symbol);
 
-        $quoteArray = json_decode($result->getBody(), true);
+        Cache::put('company.quote.' . $symbol, $quote, now()->addMinutes(15));
 
-        Cache::put('company.quote.' . $symbol, $quoteArray, now()->addMinutes(15));
-
-        return new QuoteData($quoteArray);
+        return new QuoteData($quote);
     }
 
     public function getOne(int $userId, string $ticker, float $stockPrice): ?Stock

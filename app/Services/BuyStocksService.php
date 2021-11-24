@@ -4,17 +4,17 @@ namespace App\Services;
 
 use App\Convert\Convert;
 use App\Events\StockPurchasedEvent;
-use App\Repositories\StocksRepositories\FinnhubStocksRepository;
-use App\Repositories\TransactionsRepositories\MySQLTransactionsRepository;
+use App\Repositories\StocksRepositories\StocksRepository;
+use App\Repositories\TransactionsRepositories\TransactionsRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class BuyStocksService
 {
-    private FinnhubStocksRepository $stocksRepository;
-    private MySQLTransactionsRepository $transactionsRepository;
+    private StocksRepository $stocksRepository;
+    private TransactionsRepository $transactionsRepository;
 
-    public function __construct(FinnhubStocksRepository $stocksRepository, MySQLTransactionsRepository $transactionsRepository)
+    public function __construct(StocksRepository $stocksRepository, TransactionsRepository $transactionsRepository)
     {
         $this->stocksRepository = $stocksRepository;
         $this->transactionsRepository = $transactionsRepository;

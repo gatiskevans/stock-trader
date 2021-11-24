@@ -14,6 +14,8 @@ use App\Services\BuyStocksService;
 use App\Services\MarketOpenService;
 use App\Services\SanitizeInputService;
 use App\Services\SellStocksService;
+use Exception;
+use Finnhub\ApiException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -23,7 +25,7 @@ class StocksController extends Controller
 {
     private StocksRepository $stocksRepository;
 
-    public function __construct(FinnhubStocksRepository $stocksRepository)
+    public function __construct(StocksRepository $stocksRepository)
     {
         $this->stocksRepository = $stocksRepository;
     }
@@ -40,13 +42,18 @@ class StocksController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('company', $company['displaySymbol']);
+        return redirect()->route('company', $company['display_symbol']);
     }
 
-    public function showCompany(string $companySymbol): View
+    public function showCompany(string $companySymbol)
     {
-        $companyData = $this->stocksRepository->companyProfile($companySymbol);
-        $quoteData = $this->stocksRepository->quoteData($companySymbol);
+        try {
+            $companyData = $this->stocksRepository->companyProfile($companySymbol);
+            $quoteData = $this->stocksRepository->quoteData($companySymbol);
+        } catch (Throwable $exception)
+        {
+            return redirect()->back()->withErrors("You don't have access to this resource.");
+        }
 
         return view('companies.company', [
             'company' => $companyData,
